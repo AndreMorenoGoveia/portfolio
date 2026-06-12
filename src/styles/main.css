@@ -1,0 +1,186 @@
+/* ============================================================
+   André Goveia — portfolio
+   Palette: ivory paper, warm ink, Anthropic clay, gold leaf.
+   Type: Cormorant Garamond (display), EB Garamond (text),
+         IBM Plex Mono (annotations).
+   ============================================================ */
+
+:root {
+  /* paper & stone */
+  --paper: #f4efe6;
+  --paper-bright: #faf6ee;
+  --paper-deep: #eae3d4;
+  --marble: #e9e4d9;
+
+  /* ink */
+  --ink: #2b251d;
+  --ink-soft: #5a5246;
+  --ink-faint: #8d8474;
+
+  /* pigments */
+  --clay: #d97757;
+  --clay-deep: #b85c3e;
+  --gold: #b8923e;
+  --gold-bright: #d4af5a;
+  --gold-pale: #e7d6ae;
+  --azure: #3d5a80;
+  --verdigris: #6b8f71;
+
+  --serif-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --serif-text: 'EB Garamond', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --frame-rule: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif-text);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* subtle paper grain over everything */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: color-mix(in srgb, var(--clay) 30%, transparent);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif-display);
+  font-weight: 600;
+  line-height: 1.12;
+  margin: 0;
+  color: var(--ink);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--clay-deep);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a:hover {
+  color: var(--clay);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+img,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---- shared ornaments ------------------------------------ */
+
+.smallcaps {
+  font-variant: small-caps;
+  letter-spacing: 0.14em;
+}
+
+.annotation {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.gold-text {
+  background: linear-gradient(105deg, var(--gold) 20%, var(--gold-bright) 50%, var(--gold) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Greek key (meander) horizontal rule */
+.meander {
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14' fill='none' stroke='%23b8923e' stroke-width='1.4'%3E%3Cpath d='M0 1h26v12H8V5h12v4h-8'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 28px 14px;
+  opacity: 0.65;
+}
+
+/* fleuron divider — ❧ */
+.fleuron {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.5rem;
+  letter-spacing: 1.2em;
+  padding-left: 1.2em; /* recenter after letter-spacing */
+  user-select: none;
+}
+
+/* page transition */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.45s ease, transform 0.45s var(--ease-out-soft);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
